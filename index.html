@@ -137,50 +137,54 @@
       </svg>
     `;
 
-    function calculateDiscount() {
-      const price = parseFloat(document.getElementById('price').value);
-      const discount = parseFloat(document.getElementById('discount').value);
-      const money = parseFloat(document.getElementById('money').value);
-      const resultDiv = document.getElementById('result');
-      const adviceDiv = document.getElementById('advice');
+      function calculateDiscount() {
+        const price = parseFloat(document.getElementById('price').value);
+        const discount = parseFloat(document.getElementById('discount').value);
+        const money = parseFloat(document.getElementById('money').value);
+        const resultDiv = document.getElementById('result');
+        const adviceDiv = document.getElementById('advice');
 
-      if (isNaN(price) || isNaN(discount) || isNaN(money) ||
-          price < 0 || discount < 0 || discount > 100 || money < 0) {
-        resultDiv.textContent = "";
-        adviceDiv.innerHTML = '⚠️ กรุณากรอกข้อมูลให้ถูกต้องนะจ๊ะ!';
-        adviceDiv.classList.remove("cute");
-        return;
-      }
+        if (isNaN(price) || isNaN(discount) || isNaN(money) ||
+            price < 0 || discount < 0 || discount > 100 || money < 0) {
+          resultDiv.textContent = "";
+          adviceDiv.innerHTML = '⚠️ กรุณากรอกข้อมูลให้ถูกต้องนะจ๊ะ!';
+          adviceDiv.classList.remove("cute");
+          return;
+        }
 
-      const finalPrice = price * (100 - discount) / 100;
-      const saved = price - finalPrice;
+        const finalPrice = price * (100 - discount) / 100;
+        const saved = price - finalPrice;
+        const remaining = money - finalPrice;
 
-      let message = `ราคาหลังลดคือ ${finalPrice.toFixed(2)} บาท 🎉<br>`;
-      message += `คุณประหยัดไป ${saved.toFixed(2)} บาท 💸`;
+        let message = `ราคาหลังลดคือ ${finalPrice.toFixed(2)} บาท 🎉<br>`;
+        message += `คุณประหยัดไป ${saved.toFixed(2)} บาท 💸<br>`;
+        message += `เงินจะเหลือ ${remaining.toFixed(2)} บาท 💰`;
 
-      resultDiv.innerHTML = message;
+        resultDiv.innerHTML = message;
 
-      const isWorth = discount >= 40;
-      const isAffordable = money >= finalPrice;
+        const isWorth = discount >= 40;
+        const isAffordable = money >= finalPrice;
 
-      let adviceHTML = sellySVG + "<div>";
+        let adviceHTML = sellySVG + "<div>";
 
-      if (isWorth && isAffordable) {
-        adviceHTML += `✅ คุ้มแล้วและเงินก็พอ!<br>“น้อง Selly บอกว่า... ช้อปเลยค่า 🛍️🎉✔️”`;
-        adviceDiv.classList.add("cute");
-      } else if (isWorth && !isAffordable) {
-        adviceHTML += `🟡 คุ้มอยู่ แต่เงินไม่พอ 😥<br>“อดใจรออีกนิด หยอดกระปุกเพิ่มอีกหน่อยน้า~ 🐷”`;
-        adviceDiv.classList.add("cute");
-      } else if (!isWorth && isAffordable) {
-        adviceHTML += `⛔ ไม่คุ้มเลย ถึงจะมีเงินก็อย่าเพิ่งช้อปนะ! ❌<br>“น้อง Selly บอกว่า... รอดีลเด็ดกว่านี้ดีกว่าาา~”`;
-        adviceDiv.classList.remove("cute");
-      } else {
-        adviceHTML += `❌ ไม่คุ้มแถมเงินก็ไม่พอ 💔<br>“พักก่อนนนนน... ไว้รอลดแรงๆ แล้วค่อยกลับมาใหม่นะ~”`;
-        adviceDiv.classList.remove("cute");
-      }
+        if (isWorth && isAffordable) {
+          adviceHTML += `✅ คุ้มแล้วและเงินก็พอ!<br>“น้อง Selly บอกว่า... ช้อปเลยค่า 🛍️🎉✔️”`;
+          adviceDiv.classList.add("cute");
+        } else if (isWorth && !isAffordable) {
+          adviceHTML += `🟡 คุ้มอยู่ แต่เงินไม่พอ 😥<br>“อดใจรออีกนิด หยอดกระปุกเพิ่มอีกหน่อยน้า~ 🐷”`;
+          adviceDiv.classList.add("cute");
+        } else if (!isWorth && isAffordable) {
+          adviceHTML += `⛔ ไม่คุ้มเลย ถึงจะมีเงินก็อย่าเพิ่งช้อปนะ! ❌<br>“น้อง Selly บอกว่า... รอดีลเด็ดกว่านี้ดีกว่าาา~”`;
+          adviceDiv.classList.remove("cute");
+        } else {
+          adviceHTML += `❌ ไม่คุ้มแถมเงินก็ไม่พอ 💔<br>“พักก่อนนนนน... ไว้รอลดแรงๆ แล้วค่อยกลับมาใหม่นะ~”`;
+          adviceDiv.classList.remove("cute");
+        }
 
-      adviceHTML += "</div>";
-      adviceDiv.innerHTML = adviceHTML;
+        adviceHTML += "</div>";
+        adviceDiv.innerHTML = adviceHTML;
+      
+
     }
   </script>
 </body>
